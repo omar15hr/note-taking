@@ -1,0 +1,92 @@
+<div class="flex h-screen">
+  <aside
+    class="transition-all duration-300 ease-in-out border-gray-300 border-r-1"
+    [class.w-64]="!isCollapsed"
+    [class.w-20]="isCollapsed"
+  >
+    <div class="flex flex-col h-full">
+      <div
+        class="flex items-center justify-between p-4 border-b border-gray-300"
+      >
+        <h1 class="text-lg font-bold">@if(!isCollapsed) { Notes }</h1>
+        <button
+          (click)="toggleCollapse()"
+          class="p-2 rounded-lg hover:bg-gray-300 transition-colors cursor-pointer"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <nav class="flex-1 overflow-y-auto">
+        <ul class="space-y-2 p-4">
+          <li>
+            @for (item of menuItems; track item.path) {
+            <a
+              routerLinkActive="bg-indigo-600"
+              class="flex items-center p-2 rounded-lg cursor-pointer hover:bg-gray-300 transition-colors"
+            >
+              <span class="flex items-center gap-3">
+                @if(!isCollapsed) {
+                <mat-icon>{{ item.fontIcon }}</mat-icon>
+                {{ item.title }}
+                <mat-icon fontIcon="chevron_right"></mat-icon>
+                }
+              </span>
+            </a>
+            }
+          </li>
+        </ul>
+        <div class="border-t border-gray-300">
+          <ul class="space-y-2 p-4">
+            <span>@if(!isCollapsed) { Tags }</span>
+            <li>
+              @for(tag of tags; track tag.path) {
+              <a
+                routerLinkActive="bg-indigo-600"
+                class="flex items-center p-2 rounded-lg cursor-pointer hover:bg-gray-300 transition-colors"
+              >
+                <span class="ml-3 flex gap-2 items-center justify-center">
+                  @if(!isCollapsed) {
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="icon icon-tabler icons-tabler-outline icon-tabler-tag"
+                  >
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M7.5 7.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+                    <path
+                      d="M3 6v5.172a2 2 0 0 0 .586 1.414l7.71 7.71a2.41 2.41 0 0 0 3.408 0l5.592 -5.592a2.41 2.41 0 0 0 0 -3.408l-7.71 -7.71a2 2 0 0 0 -1.414 -.586h-5.172a3 3 0 0 0 -3 3z"
+                    />
+                  </svg>
+                  {{ tag.title }}
+                  }
+                </span>
+              </a>
+              }
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </aside>
+</div>
